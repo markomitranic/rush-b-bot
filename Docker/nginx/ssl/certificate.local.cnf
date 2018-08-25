@@ -1,0 +1,25 @@
+[ req ]
+prompt = no
+default_bits = 2048
+default_md = sha256
+distinguished_name = server_distinguished_name
+req_extensions = v3_req
+
+[ server_distinguished_name ]
+commonName = rushb.homullus.com
+stateOrProvinceName = Belgrade
+countryName = RS
+emailAddress = marko.mitranic@catenamedia.com
+organizationName = Catena Media
+organizationalUnitName = Tech
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.0 = rushb.homullus.com
+
+[SAN]
+subjectAltName=DNS:rushb.homullus.com

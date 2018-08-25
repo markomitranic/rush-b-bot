@@ -6,8 +6,6 @@
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^1.8",
         "doctrine/doctrine-migrations-bundle": "^1.0",
-        "easycorp/easyadmin-bundle": "^1.17",
-        "fzaninotto/faker": "^1.7",
         "longman/telegram-bot": "^0.53.0",
         "symfony/console": "^4.0",
         "symfony/debug-bundle": "^4.0",
@@ -15,14 +13,12 @@
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
         "symfony/lts": "^4@dev",
-        "symfony/maker-bundle": "^1.4",
         "symfony/monolog-bundle": "^3.2",
         "symfony/orm-pack": "^1.0",
-        "symfony/yaml": "^4.0",
-        "vich/uploader-bundle": "^1.8"
+        "symfony/yaml": "^4.0"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "^3.0"
+        "symfony/maker-bundle": "^1.6"
     },
     "config": {
         "preferred-install": {

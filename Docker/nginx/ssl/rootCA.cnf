@@ -1,0 +1,13 @@
+[ req ]
+prompt = no
+default_bits = 2048
+default_md = sha256
+distinguished_name = server_distinguished_name
+
+[ server_distinguished_name ]
+commonName = rushb.homullus.com
+stateOrProvinceName = Belgrade
+countryName = RS
+emailAddress = marko.mitranic@catenamedia.com
+organizationName = Catena Media
+organizationalUnitName = Tech

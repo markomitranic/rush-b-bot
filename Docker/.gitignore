@@ -1,0 +1,12 @@
+# Docker
+/.env
+
+# SSL Certificates
+/nginx/ssl/certs/*
+/nginx/ssl/.srl
+!/nginx/ssl/certs/.gitkeep
+/php/ssl
+
+# Databases Store
+/mysql/datastore/*
+!/mysql/datastore/.gitkeep

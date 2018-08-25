@@ -2,9 +2,6 @@
 
 namespace App\Entity\BotBase;
 
-use App\Entity\LectureRating;
-use App\Entity\UserSurvey;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -88,18 +85,6 @@ class User
      */
     private $chat;
 
-    /**
-     * @var LectureRating[]
-     * @ORM\OneToMany(targetEntity="App\Entity\LectureRating", mappedBy="user")
-     */
-    private $ratings;
-
-    /**
-     * @var UserSurvey[]
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSurvey", mappedBy="user")
-     */
-    private $survey;
-
 
     /**
      * Constructor
@@ -115,38 +100,6 @@ class User
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return LectureRating[]
-     */
-    public function getRatings(): array
-    {
-        return $this->ratings;
-    }
-
-    /**
-     * @param LectureRating[] $ratings
-     */
-    public function setRatings(array $ratings): void
-    {
-        $this->ratings = $ratings;
-    }
-
-    /**
-     * @param UserSurvey[] $survey
-     */
-    public function setSurvey($survey): void
-    {
-        $this->survey = $survey;
-    }
-
-    /**
-     * @return UserSurvey[]|ArrayCollection
-     */
-    public function getSurvey()
-    {
-        return $this->survey;
     }
 
     /**

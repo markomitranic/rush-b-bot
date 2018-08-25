@@ -13,8 +13,3 @@ set:
 debug:
     path: /debug
     controller: App\Controller\HookController::debug
-
-easy_admin_bundle:
-    resource: "@EasyAdminBundle/Controller/AdminController.php"
-    type:     annotation
-    prefix:   /_secret_backend

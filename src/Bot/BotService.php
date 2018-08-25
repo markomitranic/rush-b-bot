@@ -65,10 +65,6 @@ class BotService
         $this->api->enableLimiter();
         $this->api->enableMySql($this->dbConfig);
 
-        // Here you can set some command specific parameters
-        // e.g. Google geocode/timezone api key for /date command
-        //$telegram->setCommandConfig('date', ['google_api_key' => 'your_google_api_key_here']);
-
         $this->api->handle();
 
         return true;

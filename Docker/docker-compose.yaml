@@ -1,0 +1,65 @@
+version: "3.7"
+
+services:
+
+  nginx:
+    container_name: rush_b_nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      target: ${ENV}
+    restart: always
+    command: [nginx-debug, '-g', 'daemon off;']
+    volumes:
+      - ./../:/usr/share/nginx/rush-b:delegated
+    ports:
+      - ${HTTPS_PORT}:443
+    depends_on:
+      - php
+    networks:
+      - rush_b
+
+  php:
+    container_name: rush_b_php
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+      target: ${ENV}
+    restart: always
+    volumes:
+      - ./../:/usr/share/nginx/rush-b:delegated
+    networks:
+      - rush_b
+
+  mysql:
+    container_name: rush_b_mysql
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+      target: ${ENV}
+    restart: always
+    volumes:
+      - ./mysql/datastore:/var/lib/mysql:cached
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASS}
+    networks:
+      - rush_b
+
+  composer:
+    container_name: rush_b_composer
+    build:
+      context: ./composer
+      dockerfile: Dockerfile
+      target: ${ENV}
+    volumes:
+      - ./../:/usr/share/nginx/rush-b
+    user: root
+    entrypoint: /usr/share/nginx/entrypoint.sh
+    networks:
+      - rush_b
+
+networks:
+  rush_b:
+    driver: bridge

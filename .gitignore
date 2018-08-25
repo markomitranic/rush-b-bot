@@ -3,3 +3,7 @@
 /var/log/*
 .env
 /config/parameters.yml
+
+# OS & SDK
+.idea
+.DS_Store
