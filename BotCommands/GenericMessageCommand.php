@@ -15,8 +15,8 @@ class GenericMessageCommand extends SystemCommand
      * @var array
      */
     private $allowedCallbackMessages = [
-        '🗡' => 'yesResponse',
-        '😴' => 'noResponse',
+        '🗡 Da' => 'yesResponse',
+        '😴 Nep' => 'noResponse',
         '📊 Lobby' => 'lobby'
     ];
 

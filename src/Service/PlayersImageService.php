@@ -2,7 +2,10 @@
 
 namespace App\Service;
 
-class PlayersService
+use App\Entity\BotBase\User;
+use App\Repository\BotBase\UserRepository;
+
+class PlayersImageService
 {
 
     /** @var string  */
@@ -12,13 +15,28 @@ class PlayersService
     const IMAGE_BOX_SIZE = 80;
 
     /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * PlayersImageService constructor.
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
+    /**
      * @return string
      * @throws \Exception
      */
     public function getPlayersStatusImage(): string
     {
-        $noPlayers = $this->getNoPlayers();
         $yesPlayers = $this->getYesPlayers();
+        $noPlayers = $this->getNoPlayers();
+
         $newImage = $this->createTrueColorImage(count($yesPlayers), count($noPlayers));
 
         $this->printPlayers($newImage, $yesPlayers, true);
@@ -51,7 +69,7 @@ class PlayersService
         foreach ($players as $key => $playerHandle) {
             $avatar = @imagecreatefromjpeg('/usr/share/nginx/rush-b/public/assets/'.$playerHandle.'.jpg');
 
-            if (!isset($avatar) || is_null($avatar) || !$avatar) {
+            if (!$avatar) {
                 $avatar = imagecreatefromjpeg('/usr/share/nginx/rush-b/public/assets/noAsset.jpg');
             }
 
@@ -70,30 +88,35 @@ class PlayersService
     }
 
     /**
-     * @return array
+     * @return String[]
      */
     private function getYesPlayers(): array
     {
-        return [
-            'lazanski',
-            'lazanski',
-            'lazanski',
-            'lazanski',
-            'lazanski',
-            'lazan2ski',
-            'lazanski'
-        ];
+        $playerHandles = [];
+
+        $players = $this->userRepository->getByResponseStatus(true);
+
+        foreach ($players as $player) {
+            $playerHandles[] = $player->getUsername();
+        }
+
+        return $playerHandles;
     }
 
     /**
-     * @return array
+     * @return String[]
      */
     private function getNoPlayers(): array
     {
-        return [
-            'lazanski',
-            'lazanski'
-        ];
+        $playerHandles = [];
+
+        $players = $this->userRepository->getByResponseStatus(false);
+
+        foreach ($players as $player) {
+            $playerHandles[] = $player->getUsername();
+        }
+
+        return $playerHandles;
     }
 
     /**
@@ -103,11 +126,10 @@ class PlayersService
      */
     private function createTrueColorImage(int $yesSlots, int $noSlots)
     {
-        if ($noSlots > 0) {
-            $newHeight = 2 * self::IMAGE_BOX_SIZE;
-        } else {
-            $newHeight = self::IMAGE_BOX_SIZE;
-        }
+        $yesSlots++;
+        $noSlots++;
+
+        $newHeight = 2 * self::IMAGE_BOX_SIZE;
 
         if ($yesSlots > $noSlots) {
             $newWidth = $yesSlots * self::IMAGE_BOX_SIZE;

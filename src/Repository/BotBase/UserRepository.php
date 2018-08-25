@@ -18,4 +18,15 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+    /**
+     * @param bool $response
+     * @return User[]
+     */
+    public function getByResponseStatus(bool $response): array
+    {
+        return $this->findBy([
+            'playing' => $response
+        ]);
+    }
 }
