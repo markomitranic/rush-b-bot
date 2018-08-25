@@ -97,7 +97,7 @@ class PlayersImageService
         $players = $this->userRepository->getByResponseStatus(true);
 
         foreach ($players as $player) {
-            $playerHandles[] = $player->getUsername();
+            $playerHandles[] = $player->getId();
         }
 
         return $playerHandles;
@@ -113,7 +113,7 @@ class PlayersImageService
         $players = $this->userRepository->getByResponseStatus(false);
 
         foreach ($players as $player) {
-            $playerHandles[] = $player->getUsername();
+            $playerHandles[] = $player->getId();
         }
 
         return $playerHandles;
