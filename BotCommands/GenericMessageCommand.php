@@ -3,7 +3,6 @@
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
 use App\Bot\Exceptions\UnrecognizedCommandException;
-use App\Logger;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Exception\TelegramException;
@@ -16,22 +15,9 @@ class GenericMessageCommand extends SystemCommand
      * @var array
      */
     private $allowedCallbackMessages = [
-        '🔙' => 'homeScreenKeyboard',
-        'Information Desk ℹ️' => 'infoDesk',
-        'Tweet about us 🐦' => 'tweetAboutUs',
-        'What now? ⏱' => 'WhatNow',
-        'Upcoming Talks ☝🏻' => 'WhatNow',
-        'Get Directions 🗺' => 'getDirections',
-        'Full Timetable ⛓' => 'fullTimetable',
-        'Lectures Today 🏬' => 'lectureListToday',
-        'Rate a lecture 🏅' => 'rateLectureList',
-        'Rate another ☝🏻' => 'rateLectureList',
-        'Speakers 🔊' => 'speakerList',
-        'Social Media 🎎' => 'socialMedia',
-        'About Feshbach 🤖' => 'aboutBot',
-        'Your profile 🤷🏽‍♀️' => 'profileInfo',
-        'Night Timetable 🌚' => 'fullTimetableNight',
-        'Day Timetable 🌝' => 'fullTimetable'
+        '🗡' => 'yesResponse',
+        '😴' => 'noResponse',
+        '📊 Lobby' => 'lobby'
     ];
 
     /**

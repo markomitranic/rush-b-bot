@@ -3,6 +3,8 @@ FROM php:7.2.8-fpm AS base
 RUN apt-get update
 RUN apt-get install wget -y
 RUN docker-php-ext-install pdo_mysql
+RUN apt-get install libpng-dev -y
+RUN docker-php-ext-install gd
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN apt-get install git -y

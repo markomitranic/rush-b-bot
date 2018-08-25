@@ -6,6 +6,7 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Exception\BadConversionException;
+use Psr\Log\LoggerInterface;
 use stdClass;
 
 class DogApi
@@ -16,12 +17,25 @@ class DogApi
     const MANY_PUGS = 'breed/pug/images';
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
      * @return string
      * @throws Exception
      */
-    public static function getRandomPugImage()
+    public function getRandomPugImage()
     {
-        $response = self::apiFetch(self::PUG_RANDOM);
+        $response = $this->apiFetch(self::PUG_RANDOM);
         return $response->message;
     }
 
@@ -30,9 +44,9 @@ class DogApi
      * @return array
      * @throws Exception
      */
-    public static function getManyPugImages(int $howMany = 3)
+    public function getManyPugImages(int $howMany = 3)
     {
-        $response = self::apiFetch(self::MANY_PUGS);
+        $response = $this->apiFetch(self::MANY_PUGS);
         $images = array_slice($response->message, $howMany);
         return $images;
     }
@@ -42,26 +56,26 @@ class DogApi
      * @return stdClass
      * @throws Exception
      */
-    public static function apiFetch(string $url)
+    public function apiFetch(string $url)
     {
         try {
             $output = self::getConnection()
                 ->request('GET', $url)
                 ->getBody();
         } catch (GuzzleException $e) {
-            Logger::getLogger()->error('Guzzle exception: '.$e->getMessage());
+            $this->logger->error('Guzzle exception: '.$e->getMessage());
             throw new Exception('Server response arrived but not successful.', 500);
         }
 
         $output = json_decode($output);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            Logger::getLogger()->error('Unable to deserialize server response.', $output);
+            $this->logger->error('Unable to deserialize server response.', $output);
             throw new BadConversionException('Unable to deserialize server response.', 500);
         }
 
         if ($output->status != 'success') {
-            Logger::getLogger()->error('Server response arrived but not successful.', $output);
+            $this->logger->error('Server response arrived but not successful.', $output);
             throw new Exception('Server response arrived but not successful.', 500);
         }
 

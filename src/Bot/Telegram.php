@@ -2,6 +2,7 @@
 
 namespace App\Bot;
 
+use App\Service\PlayersService;
 use Longman\TelegramBot\Telegram as VendorTelegram;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -9,7 +10,8 @@ class Telegram extends VendorTelegram
 {
 
     public function __construct(
-        ContainerInterface $container
+        ContainerInterface $container,
+        PlayersService $playersService
     ) {
         parent::__construct(
             $container->getParameter('bot.apikey'),
@@ -17,6 +19,8 @@ class Telegram extends VendorTelegram
         );
 
         $this->uploadsPath = __DIR__.'/../../public/uploads/';
+
+        $this->playersService = $playersService;
     }
 
     /**
@@ -28,4 +32,17 @@ class Telegram extends VendorTelegram
      * @var array
      */
     public $commandArguments = [];
+
+    /**
+     * @var PlayersService
+     */
+    private $playersService;
+
+    /**
+     * @return PlayersService
+     */
+    public function getPlayersService()
+    {
+        return $this->playersService;
+    }
 }

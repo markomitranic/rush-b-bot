@@ -5,6 +5,7 @@ namespace App\Bot;
 use App\Logger;
 use Longman\TelegramBot\Exception\TelegramException;
 use Longman\TelegramBot\TelegramLog;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class BotService
@@ -36,13 +37,15 @@ class BotService
      * BotService constructor.
      * @param Telegram $telegram
      * @param ContainerInterface $container
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Telegram $telegram,
-        ContainerInterface $container
+        ContainerInterface $container,
+        LoggerInterface $logger
     ) {
         $this->api = $telegram;
-        TelegramLog::initialize(Logger::getLogger());
+        TelegramLog::initialize($logger);
 
         $this->webhookAllowToken = $container->getParameter('webhook.set.allow.token');
         $this->webhookUrl = $container->getParameter('webhook.url');

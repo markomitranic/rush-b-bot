@@ -1,9 +1,11 @@
 parameters:
   locale: 'en'
   webhook.set.allow.token: 'ntvhn7-xxxxxxxxxxxxxxxxxxxxxxxxx-t48473487'
-  webhook.url: '/hook'
+  webhook.url: 'https://odd-tiger-97.localtunnel.me/hook'
   database.host: 'rush_b_mysql'
   database.name: 'rush-b'
   database.user: 'root'
   database.pass: 'test'
   app.path.lecture_images: /uploads/images/lecture
+  bot.apikey: '69xxxxxx43:xxxxXXXXXXXXXXxxxxxxXXXXXXXXxxxx'
+  bot.username: 'xxxbot'
