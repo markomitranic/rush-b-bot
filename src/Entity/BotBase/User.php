@@ -85,6 +85,16 @@ class User
      */
     private $chat;
 
+    /**
+     * @ORM\Column(type="string", length=1024, nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $playing;
+
 
     /**
      * Constructor
@@ -124,6 +134,30 @@ class User
     public function __toString()
     {
         return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getPlaying(): ?bool
+    {
+        return $this->playing;
+    }
+
+    public function setPlaying(?bool $playing): self
+    {
+        $this->playing = $playing;
+
+        return $this;
     }
 
 }
