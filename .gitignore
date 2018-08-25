@@ -3,6 +3,7 @@
 /var/log/*
 .env
 /config/parameters.yml
+/public/assets/responded.jpg
 
 # OS & SDK
 .idea
