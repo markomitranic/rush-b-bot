@@ -1,0 +1,9 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        lecture_images:
+            uri_prefix:         '%app.path.lecture_images%'
+            upload_destination: '%kernel.root_dir%/../public/uploads/images/lecture'
+        location_images:
+            uri_prefix:         '%app.path.location_images%'
+            upload_destination: '%kernel.root_dir%/../public/uploads/images/location'

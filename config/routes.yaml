@@ -1,0 +1,20 @@
+sanity:
+    path: /sanity
+    controller: App\Controller\HookController::sanity
+
+hook:
+    path: /hook
+    controller: App\Controller\HookController::hook
+
+set:
+    path: /set/{authToken}
+    controller: App\Controller\HookController::set
+
+debug:
+    path: /debug
+    controller: App\Controller\HookController::debug
+
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/AdminController.php"
+    type:     annotation
+    prefix:   /_secret_backend

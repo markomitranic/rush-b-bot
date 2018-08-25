@@ -1,0 +1,9 @@
+parameters:
+    locale: 'en'
+    webhook.set.allow.token: 'ntvhn7-xxxxxxxxxxxxxxxxxxxxxxxxx-t48473487'
+    webhook.url: '/hook'
+    database.host: 'localhost'
+    database.name: 'feshbach'
+    database.user: 'root'
+    database.pass: ''
+    app.path.lecture_images: /uploads/images/lecture

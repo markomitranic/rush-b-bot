@@ -1,0 +1,55 @@
+easy_admin:
+    site_name: 'Resonate 2018 Telegram Bot'
+    design:
+        brand_color: '#1ABC9C'
+    entities:
+        # change the following to the namespaces of your own entities
+        Speaker:
+          class: App\Entity\Speaker
+          list:
+              fields: ['name', 'company', 'lectures']
+        Lecture:
+          class: App\Entity\Lecture
+          list:
+            fields:
+                - { property: 'photoUrl', label: 'Photo', type: 'image',  base_path: '%app.path.lecture_images%' }
+                - 'name'
+                - 'speaker.name'
+                - 'date'
+                - 'description'
+          form:
+            fields:
+                - 'name'
+                - { property: 'speaker', icon: 'user' }
+                - 'date'
+                - 'description'
+                - { property: 'photoFile', type: 'vich_image'}
+                - 'location'
+        Location:
+          class: App\Entity\Location
+          list:
+            fields:
+                - { property: 'photo', label: 'Photo', type: 'image',  base_path: '%app.path.location_images%' }
+                - 'icon'
+                - 'name'
+                - 'description'
+                - 'lectures'
+          form:
+            fields:
+                - 'name'
+                - 'icon'
+                - 'description'
+                - { property: 'photoFile', type: 'vich_image'}
+                - 'lectures'
+        Link:
+          class: App\Entity\Link
+          list:
+            fields:
+                - 'speaker'
+                - 'name'
+                - 'link'
+          form:
+            fields:
+                - 'name'
+                - 'link'
+                - 'speaker'
