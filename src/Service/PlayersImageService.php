@@ -97,7 +97,11 @@ class PlayersImageService
         $players = $this->userRepository->getByResponseStatus(true);
 
         foreach ($players as $player) {
-            $playerHandles[] = $player->getId();
+            if (is_null($player->getUsername())) {
+                $playerHandles[] = $player->getId();
+            } else {
+                $playerHandles[] = $player->getUsername();
+            }
         }
 
         return $playerHandles;
