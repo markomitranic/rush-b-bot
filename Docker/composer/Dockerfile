@@ -13,12 +13,11 @@ RUN docker-php-ext-install zip
 
 WORKDIR /usr/share/nginx/
 
-FROM base AS dev
-
+FROM base AS prod
 COPY entrypoint-dev.sh /usr/share/nginx/entrypoint.sh
 RUN ["chmod", "+x", "/usr/share/nginx/entrypoint.sh"]
 
-FROM base AS prod
 
+FROM base AS dev
 COPY entrypoint-dev.sh /usr/share/nginx/entrypoint.sh
 RUN ["chmod", "+x", "/usr/share/nginx/entrypoint.sh"]
