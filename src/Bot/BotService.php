@@ -34,6 +34,11 @@ class BotService
     private $dbConfig;
 
     /**
+     * @var string
+     */
+    private $adminId;
+
+    /**
      * BotService constructor.
      * @param Telegram $telegram
      * @param ContainerInterface $container
@@ -55,13 +60,14 @@ class BotService
             $container->getParameter('database.pass'),
             $container->getParameter('database.name')
         );
+        $this->adminId = $container->getParameter('bot.admin');
     }
 
     /**
      * @return bool
      * @throws TelegramException
      */
-    public function handle()
+    public function handle(): bool
     {
         $this->api->addCommandsPaths([self::COMMANDS_PATH]);
         $this->api->enableAdmins($this->getAdminUsers());
@@ -78,7 +84,7 @@ class BotService
      * @return bool
      * @throws TelegramException
      */
-    public function setWebHook(string $authToken)
+    public function setWebHook(string $authToken): bool
     {
         if (!isset($authToken) || $authToken !== $this->webhookAllowToken) {
             return false;
@@ -101,7 +107,7 @@ class BotService
         $user,
         $pass,
         $db
-    ){
+    ): array {
         return [
             'host'     => $host,
             'user'     => $user,
@@ -113,11 +119,9 @@ class BotService
     /**
      * @return array
      */
-    private function getAdminUsers()
+    private function getAdminUsers(): array
     {
-        return [
-            'markomitranic'
-        ];
+        return [$this->adminId];
     }
 
     /**

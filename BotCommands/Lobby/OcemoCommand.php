@@ -6,23 +6,23 @@ use App\Bot\Telegram;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
 
-class LobbyCommand extends UserCommand
+class OcemoCommand extends UserCommand
 {
 
     /**
      * @var string
      */
-    protected $name = 'lobby';
+    protected $name = 'ocemo';
 
     /**
      * @var string
      */
-    protected $description = 'Lobby Page';
+    protected $description = 'Poteraj ekipu da se javi.';
 
     /**
      * @var string
      */
-    protected $usage = '/lobby';
+    protected $usage = '/ocemo';
 
     /**
      * @var string
@@ -41,14 +41,14 @@ class LobbyCommand extends UserCommand
 
         try {
             $statusImageUri = $this->telegram->getPlayersImageService()->getPlayersStatusImage();
+            $data['text'] = "[​​​​​​​​​​​](".$statusImageUri."?".rand().rand().")|";
         } catch (\Exception $e) {
-            $data['text'] = $e->getMessage();
-            Request::sendMessage($data);
+            return $this->replyToChat($e->getMessage());
         }
 
         $data['chat_id'] = $chat_id;
-        $data['photo'] = Request::encodeFile($statusImageUri);
-        Request::sendPhoto($data);
-        return;
+        $data['parse_mode'] = 'markdown';
+
+        return Request::sendMessage($data);
     }
 }

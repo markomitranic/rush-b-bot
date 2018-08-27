@@ -11,6 +11,9 @@ class PlayersImageService
     /** @var string  */
     const IMAGE_LOCATION = __DIR__.'/../../public/assets/responded.jpg';
 
+    /** @var string  */
+    const IMAGE_URI = 'https://rushb.homullus.com/assets/responded.jpg';
+
     /** @var int  */
     const IMAGE_BOX_SIZE = 80;
 
@@ -48,7 +51,7 @@ class PlayersImageService
             throw new \Exception('Unable to persist image to disk.', 500);
         }
 
-        return self::IMAGE_LOCATION;
+        return self::IMAGE_URI;
     }
 
     /**

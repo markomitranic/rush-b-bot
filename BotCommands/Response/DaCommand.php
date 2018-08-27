@@ -6,13 +6,13 @@ use App\Bot\Telegram;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
 
-class YesResponseCommand extends UserCommand
+class DaCommand extends UserCommand
 {
 
     /**
      * @var string
      */
-    protected $name = 'yesResponse';
+    protected $name = 'da';
 
     /**
      * @var string
@@ -22,7 +22,7 @@ class YesResponseCommand extends UserCommand
     /**
      * @var string
      */
-    protected $usage = '/yesResponse';
+    protected $usage = '/da';
 
     /**
      * @var string
@@ -42,26 +42,14 @@ class YesResponseCommand extends UserCommand
      */
     public function execute()
     {
-        $message = $this->getMessage();
-        $chat_id = $message->getChat()->getId();
         $user = $this->getMessage()->getFrom();
-        $data['chat_id'] = $chat_id;
 
         try {
             $this->telegram->getPlayersResponseService()->respond($user->getId(), true);
         } catch (\Throwable $e) {
-            $data['text'] = $e->getMessage();
-            return Request::sendMessage($data);
+            return $this->replyToChat($e->getMessage());
         }
 
-        try {
-            $statusImageUri = $this->telegram->getPlayersImageService()->getPlayersStatusImage();
-        } catch (\Exception $e) {
-            $data['text'] = $e->getMessage();
-            return Request::sendMessage($data);
-        }
-
-        $data['photo'] = Request::encodeFile($statusImageUri);
-        return Request::sendPhoto($data);
+        return Request::emptyResponse();
     }
 }

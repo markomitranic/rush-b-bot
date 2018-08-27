@@ -65,16 +65,7 @@ class StartCommand extends UserCommand
         $chat_id = $message->getChat()->getId();
         $data['chat_id'] = $chat_id;
 
-        $text = 'Pozdrav braćo!' . PHP_EOL;
-        $text .= 'Ja vam mogu služiti kao centrala za okupljanje. 🙂'. PHP_EOL;
-        $data['text'] = $text;
-
-        $keyboard = new Keyboard([
-            ['text' => '🗡 Da'], ['text' => '🐓 Nep']
-        ], [
-            ['text' => '📊 Lobby']
-        ]);
-        $data['reply_markup'] = $keyboard;
+        $data['text'] = 'Pozdrav braćo!';
 
         return Request::sendMessage($data);
     }

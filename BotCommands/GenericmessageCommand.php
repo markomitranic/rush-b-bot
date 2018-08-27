@@ -5,19 +5,20 @@ namespace Longman\TelegramBot\Commands\SystemCommands;
 use App\Bot\Exceptions\UnrecognizedCommandException;
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Conversation;
+use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
 use Longman\TelegramBot\Request;
 
-class GenericMessageCommand extends SystemCommand
+class GenericmessageCommand extends SystemCommand
 {
 
     /**
      * @var array
      */
     private $allowedCallbackMessages = [
-        '🗡 Da' => 'yesResponse',
-        '🐓 Nep' => 'noResponse',
-        '📊 Lobby' => 'lobby'
+        '🗡 Da' => 'da',
+        '🐓 Ne' => 'ne',
+        '📊 Oćemo?' => 'ocemo'
     ];
 
     /**
@@ -60,7 +61,7 @@ class GenericMessageCommand extends SystemCommand
                 return $this->generateInvalidCommandReply($message->getChat()->getId());
             }
         } catch (\Exception $e) {
-            return $this->generateServerErrorReply($message->getChat()->getId(), $e);
+            return $this->generateServerErrorReply($message->getChat()->getId());
         }
     }
 
@@ -100,28 +101,27 @@ class GenericMessageCommand extends SystemCommand
     }
 
     /**
+     * @param $chatId
      * @return \Longman\TelegramBot\Entities\ServerResponse
-     * @throws \Longman\TelegramBot\Exception\TelegramException
+     * @throws TelegramException
      */
-    private function generateInvalidCommandReply($chatId)
+    private function generateInvalidCommandReply($chatId): ServerResponse
     {
         $data['chat_id'] = $chatId;
-        $data['text'] = 'Ugh, didn\'t quite understand that, sorry.';
+        $data['text'] = 'Ne razumem komandu. Praštaj. 😰';
         return Request::sendMessage($data);
     }
 
 
     /**
      * @param int $chatId
-     * @param \Exception $e
      * @return \Longman\TelegramBot\Entities\ServerResponse
      * @throws \Longman\TelegramBot\Exception\TelegramException
      */
-    private function generateServerErrorReply($chatId, \Exception $e)
+    private function generateServerErrorReply($chatId): ServerResponse
     {
-        Logger::getLogger()->error($e->getMessage());
         $data['chat_id'] = $chatId;
-        $data['text'] = 'A server error occured. So ashamed. 😰';
+        $data['text'] = 'Greška na serveru. Praštaj. 😰';
         return Request::sendMessage($data);
     }
 
